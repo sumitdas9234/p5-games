@@ -23,6 +23,46 @@
       padding-left: 5px;
       color: #fff;
     }
+
+    #overlay {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      margin: 0px;
+      padding: 0px;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: none;
+    }
+
+    #overlay p {
+      position: absolute;
+      left: 35%;
+      top: 33%;
+      font-size: 72px;
+      color: #fff;
+    }
+
+    .restart {
+      font: inherit;
+      position: absolute;
+      left: 40%;
+      bottom: 35%;
+      width: 200px;
+      height: 40px;
+      text-align: center;
+      font-size: 24px;
+      background-color: #fff;
+      border-style: none;
+      cursor: pointer;
+    }
+
+    .footer-link {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+    }
   </style>
 </head>
 
@@ -31,12 +71,21 @@
   <div id="score">
     <p>Current Score : <span id="currentScore">N/A</span></p>
   </div>
-
+  <div id="overlay">
+    <p>Game Over!</p>
+    <button type="button" class="restart" onclick='return restart();'>Play Again</button>
+  </div>
+  <div class="footer-link">
+    <a href="https://www.github.com/sumitdas9234/p5-games">
+      <img src="res/github.png" alt="Github Link">
+    </a>
+  </div>
   <script src="../p5.min.js"></script>
   <script src="../addons/p5.dom.min.js"></script>
   <script src="../addons/p5.sound.min.js"></script>
   <script src="ship.js"></script>
   <script src="asteroids.js"></script>
+  <script src="lasers.js"></script>
   <script src="sketch.js"></script>
 </body>
 

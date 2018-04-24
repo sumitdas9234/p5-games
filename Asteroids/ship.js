@@ -1,11 +1,12 @@
 class Ship {
   constructor() {
     this.pos = createVector(width / 2, height / 2);
-    this.r = 25;
+    this.r = 20;
     this.head = 0;
     this.rotation = 0;
     this.velocity = createVector(0, 0);
     this.isBoosting = false;
+    this.score = 0;
   }
 }
 
@@ -15,6 +16,14 @@ Ship.prototype.update = function() {
   this.velocity.mult(0.95);
   if (this.isBoosting) {
     this.boost();
+  }
+  for (let i = 0; i < asteroids.length; i++) {
+    if (asteroids[i] instanceof Asteroid) {
+      let d = dist(this.pos.x, this.pos.y, asteroids[i].pos.x, asteroids[i].pos.y);
+      if (d < asteroids[i].radius) {
+        pause = true;
+      }
+    }
   }
 };
 
@@ -34,7 +43,6 @@ Ship.prototype.show = function() {
   rotate(this.head);
   triangle(-this.r + 5, this.r, this.r - 5, this.r, 0, -this.r);
   pop();
-
 };
 
 Ship.prototype.setRotation = function(angle) {
@@ -43,6 +51,10 @@ Ship.prototype.setRotation = function(angle) {
 
 Ship.prototype.turn = function() {
   this.head += this.rotation;
+};
+
+Ship.prototype.fire = function() {
+  lasers.push(new Laser(this));
 };
 
 Ship.prototype.wrap = function() {
@@ -57,5 +69,11 @@ Ship.prototype.wrap = function() {
   }
   if (this.pos.y > height + this.r) {
     this.pos.y = 0 + this.r;
+  }
+
+  for (let i = 0; i < lasers.length; i++) {
+    if (lasers[i].position.x < 0 || lasers[i].position.x > width || lasers[i].position.y < 0 || lasers[i].position.y > height) {
+      lasers.splice(i, 1);
+    }
   }
 };
